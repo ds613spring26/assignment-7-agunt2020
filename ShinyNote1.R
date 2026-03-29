@@ -86,6 +86,12 @@ ui <- fluidPage(
     label = "Pick a Visual:",
     choices = c("Histogram", "Boxplot")
     ),
+  selectInput(
+    inputId = "ColorChoices", 
+    label = "Pick a color: ", 
+    choices = c("black", "white", "red", "blue", "green", "yellow", "purple"), 
+    selected = "black"
+  ), 
   textOutput("Result"), #Output the result
 )
 
