@@ -94,4 +94,11 @@ server <- function(input, output) {
   output$Result <- renderText({
     input$plotType
   })
+
+  output$SelectPlot <- renderPlot({
+  switch(input$plotType, 
+         "Histogram" = hist(runif(200), col="black"), 
+         "Boxplot" = boxplot(runif(200), col="black")
+         )
+    })
 }
