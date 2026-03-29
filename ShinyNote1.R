@@ -75,36 +75,45 @@ server <- function(input, output) {
 }
 shinyApp(ui = ui, server = server)
 
-ui <- fluidPage(
-  titlePanel("Aparajita Reddy Gunturu"), # The title bar
-)
+n <- 200
 
 ui <- fluidPage(
   titlePanel("Aparajita Reddy Gunturu"), # The title bar
-  selectInput( #Made a dropdown menu with plot types histogram and boxplot
+  selectInput( 
     inputId = "plotType",
     label = "Pick a Visual:",
-    choices = c("Histogram", "Boxplot")
+    choices = c("Histogram", "Boxplot"), 
+    selected = "Histogram"
     ),
+  
   selectInput(
     inputId = "ColorChoices", 
     label = "Pick a color: ", 
     choices = c("black", "white", "red", "blue", "green", "yellow", "purple"), 
     selected = "black"
   ), 
+  
+  numericInput('n', 'Number of obs', n), 
+  
   textOutput("Result"), #Output the result
+  plotOutput("SelectPlot")
 )
 
 # Define the server code
 server <- function(input, output) {
   output$Result <- renderText({
-    input$plotType
-  })
+    paste("You have selected a", input$plotType, "with", input$n, "observations.")
+    })
 
-  output$SelectPlot <- renderPlot({
+
+output$SelectPlot <- renderPlot({
   switch(input$plotType, 
-         "Histogram" = hist(runif(200), col = input$ColorChoices), 
-         "Boxplot" = boxplot(runif(200), col = input$ColorChoices)
+         "Histogram" = hist(runif(input$n), col = input$ColorChoices), 
+         "Boxplot" = boxplot(runif(input$n), col = input$ColorChoices)
          )
     })
+
 }
+
+# Return a Shiny app object
+shinyApp(ui = ui, server = server)
