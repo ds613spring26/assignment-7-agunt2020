@@ -78,3 +78,20 @@ shinyApp(ui = ui, server = server)
 ui <- fluidPage(
   titlePanel("Aparajita Reddy Gunturu"), # The title bar
 )
+
+ui <- fluidPage(
+  titlePanel("Aparajita Reddy Gunturu"), # The title bar
+  selectInput( #Made a dropdown menu with plot types histogram and boxplot
+    inputId = "plotType",
+    label = "Pick a Visual:",
+    choices = c("Histogram", "Boxplot")
+    ),
+  textOutput("Result"), #Output the result
+)
+
+# Define the server code
+server <- function(input, output) {
+  output$Result <- renderText({
+    input$plotType
+  })
+}
