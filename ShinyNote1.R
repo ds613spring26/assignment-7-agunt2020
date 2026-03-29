@@ -75,3 +75,6 @@ server <- function(input, output) {
 }
 shinyApp(ui = ui, server = server)
 
+ui <- fluidPage(
+  titlePanel("Aparajita Reddy Gunturu"), # The title bar
+)
